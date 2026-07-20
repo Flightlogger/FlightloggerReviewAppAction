@@ -1,5 +1,5 @@
 name: 'FlightLogger Review App'
-description: 'Create and destroy Heroku review apps'
+description: 'GitHub Action to create and destroy Heroku review apps via the Platform API for GitHub-connected pipelines'
 inputs:
   command:
     description: "'create' or 'destroy'"
