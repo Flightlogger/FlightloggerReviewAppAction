@@ -4,27 +4,27 @@ inputs:
   command:
     description: "'create' or 'destroy'"
     required: true
-  pr-number:
+  pr_number:
     description: 'Pull request number'
     required: true
-  pr-branch:
+  pr_branch:
     description: 'Pull request branch name (required for create)'
     required: false
-  heroku-api-key:
+  heroku_api_key:
     description: 'Heroku Platform API key'
     required: true
-  heroku-pipeline-id:
+  heroku_pipeline_id:
     description: 'Heroku pipeline UUID'
     required: true
-  cloudflare-api-token:
+  cloudflare_api_token:
     description: 'Cloudflare API token (required for destroy)'
     required: false
-  review-domain:
+  review_domain:
     description: 'Review app domain'
     default: 'flightlogger-trail.net'
-  subdomain-prefixes:
+  subdomain_prefixes:
     description: 'Comma-separated subdomain prefixes'
     default: 'demo,my,api'
 runs:
-  using: 'node20'
+  using: 'node24'
   main: 'dist/index.js'

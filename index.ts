@@ -5,9 +5,9 @@ import { deleteDnsRecords } from "./cloudflare";
 async function run() {
   try {
     const command = core.getInput("command", { required: true });
-    const prNumber = parseInt(core.getInput("pr-number", { required: true }), 10);
-    const herokuApiKey = core.getInput("heroku-api-key", { required: true });
-    const pipelineId = core.getInput("heroku-pipeline-id", { required: true });
+    const prNumber = parseInt(core.getInput("pr_number", { required: true }), 10);
+    const herokuApiKey = core.getInput("heroku_api_key", { required: true });
+    const pipelineId = core.getInput("heroku_pipeline_id", { required: true });
 
     if (command === "create") {
       await handleCreate(herokuApiKey, pipelineId, prNumber);
@@ -22,7 +22,7 @@ async function run() {
 }
 
 async function handleCreate(apiKey: string, pipelineId: string, prNumber: number) {
-  const prBranch = core.getInput("pr-branch", { required: true });
+  const prBranch = core.getInput("pr_branch", { required: true });
   const existing = await listReviewApps(apiKey, pipelineId);
   const match = existing.find((ra) => ra.pr_number === prNumber);
   if (match) {
@@ -35,9 +35,9 @@ async function handleCreate(apiKey: string, pipelineId: string, prNumber: number
 }
 
 async function handleDestroy(apiKey: string, pipelineId: string, prNumber: number) {
-  const cloudflareToken = core.getInput("cloudflare-api-token", { required: true });
-  const reviewDomain = core.getInput("review-domain");
-  const prefixes = core.getInput("subdomain-prefixes").split(",").map((s) => s.trim());
+  const cloudflareToken = core.getInput("cloudflare_api_token", { required: true });
+  const reviewDomain = core.getInput("review_domain");
+  const prefixes = core.getInput("subdomain_prefixes").split(",").map((s) => s.trim());
   const existing = await listReviewApps(apiKey, pipelineId);
   const match = existing.find((ra) => ra.pr_number === prNumber);
   if (!match) {
