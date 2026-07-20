@@ -1,0 +1,39 @@
+name: FlightLogger Review App
+description: Create and destroy Heroku review apps with Cloudflare DNS management
+
+inputs:
+  command:
+    description: "'create' or 'destroy'"
+    required: true
+  pr_number:
+    description: Pull request number
+    required: true
+  pr_branch:
+    description: Pull request branch name (required for create)
+    required: false
+  heroku_api_key:
+    description: Heroku Platform API key
+    required: true
+  heroku_pipeline_id:
+    description: Heroku pipeline UUID
+    required: true
+  cloudflare_api_token:
+    description: Cloudflare API token (required for destroy)
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - name: Install gems
+      shell: bash
+      run: gem install --user-install platform-api cloudflare --no-document
+
+    - name: Run command
+      shell: bash
+      env:
+        PR_NUMBER: ${{ inputs.pr_number }}
+        PR_BRANCH: ${{ inputs.pr_branch }}
+        HEROKU_API_KEY: ${{ inputs.heroku_api_key }}
+        HEROKU_PIPELINE_ID: ${{ inputs.heroku_pipeline_id }}
+        CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
+      run: ruby ${{ github.action_path }}/${{ inputs.command }}.rb
