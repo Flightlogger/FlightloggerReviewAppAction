@@ -16,6 +16,9 @@ inputs:
   heroku_pipeline_id:
     description: 'Heroku pipeline UUID'
     required: true
+  github_token:
+    description: 'GitHub token for fetching source tarball'
+    required: true
 runs:
   using: 'node24'
   main: 'dist/index.js'

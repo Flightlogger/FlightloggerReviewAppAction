@@ -10,6 +10,7 @@ async function run() {
 
     if (command === "create") {
       const prBranch = core.getInput("pr_branch", { required: true });
+      const githubToken = core.getInput("github_token", { required: true });
       const existing = await listReviewApps(herokuApiKey, pipelineId);
       const match = existing.find((ra) => ra.pr_number === prNumber);
       if (match) {
@@ -17,7 +18,7 @@ async function run() {
         await deleteReviewApp(herokuApiKey, match.id);
         await sleep(15_000);
       }
-      const response = await createReviewApp(herokuApiKey, pipelineId, prBranch, prNumber);
+      const response = await createReviewApp(herokuApiKey, pipelineId, prBranch, prNumber, githubToken);
       console.log(`Review app created (${response.status}). Heroku will build, deploy, and run postdeploy.`);
     } else if (command === "destroy") {
       const existing = await listReviewApps(herokuApiKey, pipelineId);
