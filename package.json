@@ -1,0 +1,17 @@
+{
+  "name": "FlightloggerReviewAppAction",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "repository": "git@github.com:Flightlogger/FlightloggerReviewAppAction.git",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.11.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "@vercel/ncc": "^0.38.3"
+  },
+  "scripts": {
+    "build": "ncc build index.ts --minify"
+  }
+}
