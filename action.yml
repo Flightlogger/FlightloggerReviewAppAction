@@ -1,5 +1,5 @@
 name: 'FlightLogger Review App'
-description: 'Create and destroy Heroku review apps with Cloudflare DNS management'
+description: 'Create and destroy Heroku review apps'
 inputs:
   command:
     description: "'create' or 'destroy'"
@@ -16,15 +16,6 @@ inputs:
   heroku_pipeline_id:
     description: 'Heroku pipeline UUID'
     required: true
-  cloudflare_api_token:
-    description: 'Cloudflare API token (required for destroy)'
-    required: false
-  review_domain:
-    description: 'Review app domain'
-    default: 'flightlogger-trail.net'
-  subdomain_prefixes:
-    description: 'Comma-separated subdomain prefixes'
-    default: 'demo,my,api'
 runs:
   using: 'node24'
   main: 'dist/index.js'

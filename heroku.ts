@@ -35,10 +35,23 @@ export async function createReviewApp(
       pipeline: pipelineId,
       branch,
       pr_number: prNumber,
+      source_blob: {
+        url: await getTarballUrl(apiKey, pipelineId, branch),
+      },
     }),
   });
   if (!res.ok) throw new Error(`Create review app failed (${res.status}): ${await res.text()}`);
   return res.json();
+}
+
+async function getTarballUrl(apiKey: string, pipelineId: string, branch: string): Promise<string> {
+  const repoRes = await fetch(`${HEROKU_API}/pipelines/${pipelineId}/repository`, {
+    headers: headers(apiKey),
+  });
+  if (!repoRes.ok) throw new Error(`Get pipeline repository failed (${repoRes.status}): ${await repoRes.text()}`);
+  const repo = await repoRes.json() as { repository: { name: string } };
+  const repoName = repo.repository.name;
+  return `https://api.github.com/repos/${repoName}/tarball/${branch}`;
 }
 
 export async function deleteReviewApp(apiKey: string, reviewAppId: string): Promise<void> {
