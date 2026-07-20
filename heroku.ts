@@ -37,6 +37,7 @@ export async function createReviewApp(
       pr_number: prNumber,
       source_blob: {
         url: `https://api.github.com/repos/${process.env.GITHUB_REPOSITORY}/tarball/${branch}`,
+        version: process.env.GITHUB_SHA!,
       },
     }),
   });
