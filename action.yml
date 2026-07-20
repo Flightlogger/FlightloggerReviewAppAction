@@ -19,6 +19,15 @@ inputs:
   github_token:
     description: 'GitHub token for fetching source tarball'
     required: true
+  cloudflare_api_token:
+    description: 'Cloudflare API token (required for destroy)'
+    required: false
+  review_domain:
+    description: 'Review app domain (required for destroy)'
+    required: false
+  subdomain_prefixes:
+    description: 'Comma-separated subdomain prefixes (required for destroy)'
+    required: false
 runs:
   using: 'node24'
   main: 'dist/index.js'
